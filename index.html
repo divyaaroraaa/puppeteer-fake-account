@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fake Account Generator</title>
+</head>
+<body>
+  <h2>🚀 Fake Account Generator</h2>
+  <form id="form">
+    <button type="submit">Create Fake Account</button>
+  </form>
+  <div id="output"></div>
+  <script>
+    document.getElementById("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      document.getElementById("output").innerHTML = "⏳ Processing...";
+      const res = await fetch("/start", { method: "POST" });
+      const data = await res.json();
+      document.getElementById("output").innerHTML = data.success
+        ? `✅ Created!<br>Name: ${data.name}<br>Email: ${data.email}<br>Phone: ${data.phone}<br>Password: ${data.password}`
+        : `❌ Failed: ${data.error}`;
+    });
+  </script>
+</body>
+</html>
